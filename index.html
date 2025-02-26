@@ -45,18 +45,41 @@ backgroud-color: #f1f1f1;
  <a href="https://yanhua.ip-love.top/"
  style="text-decoration:none;">点击这里哦</a>
   <div>
-      <!-- 将 audio 标签放在 body 末尾 -->
-    <audio id="bgm" loop hidden>
+      <!-- 步骤1：定义音频标签（静音自动播放） -->
+    <audio id="bgm" loop muted autoplay>
         <source src="music/bgm.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放
     </audio>
 
     <script>
-        // 用户点击页面后触发播放（解决浏览器自动播放限制）
-        document.addEventListener('click', function() {
-            const audio = document.getElementById('bgm');
-            audio.play(); // 开始播放
-            audio.muted = false; // 取消静音
+        // 步骤2：检测是否支持自动播放
+        const audio = document.getElementById('bgm');
+        let isAutoPlayed = false;
+
+        // 监听音频是否能自动播放
+        audio.addEventListener('play', () => {
+            isAutoPlayed = true;
+            console.log('自动播放成功');
         });
+
+        // 步骤3：用户点击页面时触发播放（兼容所有浏览器）
+        document.addEventListener('click', () => {
+            if (!isAutoPlayed) {
+                // 如果自动播放未触发，则手动播放
+                audio.play().catch(error => {
+                    console.log('需要用户交互后才能播放');
+                });
+            }
+            // 无论是否自动播放，取消静音
+            audio.muted = false;
+        });
+
+        // 可选：页面加载后延迟检测自动播放状态
+        setTimeout(() => {
+            if (!isAutoPlayed) {
+                console.log('自动播放被阻止，等待用户点击');
+            }
+        }, 1000);
     </script>
 </body>
 <!--body标签内填写网页内容 div分区块-->
