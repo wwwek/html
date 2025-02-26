@@ -45,11 +45,19 @@ backgroud-color: #f1f1f1;
  <a href="https://yanhua.ip-love.top/"
  style="text-decoration:none;">点击这里哦</a>
   <div>
-      <!-- 自动播放、循环播放、隐藏控件 -->
-<audio autoplay loop hidden>
-  <source src="music/bgm.mp3" type="audio/mpeg">
-  您的浏览器不支持音频播放。
-</audio>
+      <!-- 将 audio 标签放在 body 末尾 -->
+    <audio id="bgm" loop hidden>
+        <source src="music/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 用户点击页面后触发播放（解决浏览器自动播放限制）
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('bgm');
+            audio.play(); // 开始播放
+            audio.muted = false; // 取消静音
+        });
+    </script>
 </body>
 <!--body标签内填写网页内容 div分区块-->
 
