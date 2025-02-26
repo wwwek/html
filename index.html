@@ -6,6 +6,33 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>一个html</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+    /* 音乐按钮样式 */
+    #music-control {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+        z-index: 999;
+        transition: 0.2s;
+    }
+    #music-control:hover {
+        background: rgba(0, 0, 0, 0.5);
+        transform: scale(1.1);
+        border-color: white;
+    }
+</style>
 </head>
 
 <body>
@@ -46,19 +73,31 @@ backgroud-color: #f1f1f1;
  <a href="https://yanhua.ip-love.top/"
  style="text-decoration:none;">点击这里哦</a>
 </div>
-      <!-- 将 audio 标签放在 body 末尾 -->
-    <audio id="bgm" loop hidden>
-        <source src="music/bgm.mp3" type="audio/mpeg">
-    </audio>
+    <!-- 放在 body 内任意位置（推荐靠近末尾） -->
+<div id="music-control">♪</div>
+<audio id="bgm" loop>
+    <source src="music/bgm.mp3" type="audio/mpeg">
+</audio>
+     <script>
+    // 音乐控制逻辑
+    const audio = document.getElementById('bgm');
+    const controlBtn = document.getElementById('music-control');
 
-    <script>
-        // 用户点击页面后触发播放（解决浏览器自动播放限制）
-        document.addEventListener('click', function() {
-            const audio = document.getElementById('bgm');
-            audio.play(); // 开始播放
-            audio.muted = false; // 取消静音
-        });
-    </script>
+    // 自动播放尝试（静音模式）
+    audio.muted = true;
+    audio.play().catch(() => {});
+
+    // 点击控制
+    controlBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            audio.muted = false;
+        } else {
+            audio.pause();
+        }
+        controlBtn.textContent = audio.paused ? "♪" : "❙❙";
+    });
+      </script>
 </body>
 <!--body标签内填写网页内容 div分区块-->
 
