@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>一个html</title>
-    <embed src="./music/bgm.mp3" autostart="true" loop="true" hidden="true"></embed>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
@@ -46,6 +45,11 @@ backgroud-color: #f1f1f1;
  <a href="https://yanhua.ip-love.top/"
  style="text-decoration:none;">点击这里哦</a>
   <div>
+      <!-- 自动播放、循环播放、隐藏控件 -->
+<audio autoplay loop hidden>
+  <source src="music/bgm.mp3" type="audio/mpeg">
+  您的浏览器不支持音频播放。
+</audio>
 </body>
 <!--body标签内填写网页内容 div分区块-->
 
