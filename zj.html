@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一个随随便便的html</title>
+    <style>
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 25%;
+        }
+
+        .left-box {
+            flex: 1;
+            background: #ff9999;
+            padding: 15px;
+            border-radius: 8px;
+            color: #333;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .top-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .small-box {
+            background: #99ccff;
+            padding: 10px;
+            border-radius: 8px;
+            color: #adadcc;
+            flex: 1 1 30%;
+            min-width: 100px;
+            text-align: left;
+        }
+
+        .small-box:nth-child(3) {
+            text-align: center;
+            color: #4c4c98;
+        }
+
+        /* 修改右下角区块样式 */
+        .big-box {
+            background: #28287a;
+            border-radius: 8px;
+            color: #70709d;
+            padding: 30px;
+            
+            /* 新增定位方式 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.5rem;
+            
+            /* 移除弹性伸缩 */
+            flex: none; /* 新增 */
+            height: auto; /* 新增 */
+            margin-top: 0; /* 新增 */
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-column {
+                width: 100%;
+                flex-direction: row;
+            }
+            /* 手机端字体调整 */
+            .big-box {
+                padding: 20px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="left-box"><a href="https://a.ip-love.top">我的博客</a></div>
+            <!--左列区块1-->
+            <div class="left-box"><a href="https://yanhua.ip-love.top">放烟花哦</a></div>
+        </div>
+        <!--左列区块2-->
+
+        <div class="main-area">
+            <div class="top-row">
+                <div class="small-box">还是ai好用啊!</div>
+                <!--方块1-->
+                <div class="small-box">一堆div嵌套都看不懂</div>
+                <!--方块2-->
+                <div class="small-box">ai改变世界哦</div>
+                <!--方块3-->
+            </div>
+            
+            <div class="big-box">
+            <img src='
+https://a.ip-love.top/wp-content/uploads/2025/02/bg4.jpg' 
+alt="嘻嘻" 
+width="120px" 
+height="120px">
+            <p>这里是一个网站哦</p>
+            <p>虽然什么东西也没有吧</p>
+            <p>但是我还是搭好了</p>
+            <p>虽然咱们家的设备简陋</p>
+            <p>不过奈何<b>ai</b>改变世界</p>
+            <p>没有错</p>
+            <p>我因为不懂flex，是用<a href="https://www.deepseek.com/" style="text-decoration:none;">deepseek</a>写的，虽然布局依然非常丑</p>
+            <p>但我还是满足了</p>
+            <p>毕竟deepseek感觉还是很好用的</p>
+            <p>就这样</p>
+            <p>加纳(∠・ω< )⌒☆</p>
+            <p></p>
+            <p></p>
+            </div>
+        </div>
+        <div style="
+backgroud-color: #c1e5fa;
+ text-align: center;
+  padding: 40px; 
+  font-size: 12px; 
+  "><p><h5>感谢你看到最后</h5></p>
+            <p><h5>我刚刚发现我的网页不开暗色模式字淡得都要看不见了</h5></p>
+            <p><h5>不过我也不打算改了</h5></p>
+            <p><h5>因为我开的暗色模式嘛</h5></p>
+            <p><h5>所以我感觉字还挺好看的</h5></p>
+            <p><h5>嗯 就这样吧</h5></p>
+            <p><h5>我刚刚突然发现我的网页</h5></p>
+            <p><h5>电脑端的排版比较 嗯</h5></p>
+            <p><h5>抽象</h5></p>
+            <p><h5>我不会修 所以</h5></p>
+            <p><h5>就放在那里吧</h5></p>
+            <p><h5></h5></p>
+            <p><h5></h5></p>
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>
+</body>
+</html>
