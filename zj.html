@@ -160,5 +160,18 @@ backgroud-color: #c1e5fa;
             
         </div>
     </div>
+    <!-- 将 audio 标签放在 body 末尾 -->
+    <audio id="bgm" loop hidden>
+        <source src="music/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 用户点击页面后触发播放（解决浏览器自动播放限制）
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('bgm');
+            audio.play(); // 开始播放
+            audio.muted = false; // 取消静音
+        });
+    </script>
 </body>
 </html>
