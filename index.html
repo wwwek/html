@@ -7,32 +7,45 @@
     <title>一个html</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
-    /* 音乐按钮样式 */
-    #music-control {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        width: 30px;
-        height: 30px;
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.3);
-        color: white;
-        font-size: 12px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(5px);
-        z-index: 999;
-        transition: 0.2s;
-    }
-    #music-control:hover {
-        background: rgba(0, 0, 0, 0.5);
-        transform: scale(1.1);
-        border-color: white;
-    }
-</style>
+        #music-control {
+            /* 原有样式保持不变 */
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            transition: 0.2s;
+        }
+        #music-control:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        /* 新增提示文字样式 */
+        #music-tip {
+            position: fixed;
+            top: 60px;       /* 在按钮下方 */
+            right: 15px;
+            color: white;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: none;   /* 初始隐藏 */
+        }
+    </style>
 </head>
 
 <body>
@@ -73,31 +86,75 @@ backgroud-color: #f1f1f1;
  <a href="https://yanhua.ip-love.top/"
  style="text-decoration:none;">点击这里哦</a>
 </div>
-    <!-- 放在 body 内任意位置（推荐靠近末尾） -->
-<div id="music-control">♪</div>
-<audio id="bgm" loop>
-    <source src="music/bgm.mp3" type="audio/mpeg">
-</audio>
+    <!-- 新增提示文字 -->
+    <div id="music-tip">点击页面任意位置播放音乐</div>
+    
+    <!-- 音乐控制按钮 -->
+    <div id="music-control">♪</div>
+    
+    <audio id="bgm" loop>
+        <source src="music/bgm.mp3" type="audio/mpeg">
+    </audio>
      <script>
-    // 音乐控制逻辑
-    const audio = document.getElementById('bgm');
-    const controlBtn = document.getElementById('music-control');
+        const audio = document.getElementById('bgm');
+        const controlBtn = document.getElementById('music-control');
+        const musicTip = document.getElementById('music-tip'); // 获取提示元素
 
-    // 自动播放尝试（静音模式）
-    audio.muted = true;
-    audio.play().catch(() => {});
-
-    // 点击控制
-    controlBtn.addEventListener('click', () => {
+        // 初始显示提示（仅当音乐未播放时）
         if (audio.paused) {
-            audio.play();
-            audio.muted = false;
-        } else {
-            audio.pause();
+            musicTip.style.display = 'block';
         }
-        controlBtn.textContent = audio.paused ? "♪" : "❙❙";
-    });
-      </script>
+
+        // 自动播放尝试（静音模式）
+        audio.muted = true;
+        audio.play().catch(() => {});
+
+        // 点击按钮控制音乐
+        controlBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMusic();
+        });
+
+        // 点击页面任意位置播放
+        document.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.muted = false;
+                audio.play();
+                updateButtonState();
+            }
+        });
+
+        // 新增移动端触摸支持
+        document.addEventListener('touchend', (e) => {
+            if (audio.paused) {
+                e.preventDefault(); // 防止触摸触发其他默认行为
+                audio.muted = false;
+                audio.play();
+                updateButtonState();
+            }
+        });
+
+        // 音乐播放时隐藏提示
+        audio.addEventListener('play', () => {
+            musicTip.style.display = 'none';
+        });
+
+        // 统一控制函数
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.muted = false;
+                audio.play();
+            } else {
+                audio.pause();
+            }
+            updateButtonState();
+        }
+
+        // 更新按钮状态
+        function updateButtonState() {
+            controlBtn.textContent = audio.paused ? "♪" : "༶";
+        }
+    </script>
 </body>
 <!--body标签内填写网页内容 div分区块-->
 
