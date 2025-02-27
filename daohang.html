@@ -47,7 +47,7 @@
 
         .navbar-hidden {
             transform: translateY(-100%);
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         #navbar:hover {
@@ -331,27 +331,28 @@
     <script>
         // 保持原有JavaScript代码不变...
         // 导航栏滚动控制
-        let lastScroll = 0;
-        const navbar = document.getElementById('navbar');
-        const scrollThreshold = 100;
+let lastScroll = 0;
+const navbar = document.getElementById('navbar');
+const scrollThreshold = 30; // ⭐ 触发阈值从100px改为50px（灵敏度翻倍）⭐
 
-        function handleScroll() {
-            const currentScroll = window.pageYOffset;
-            const scrollDelta = currentScroll - lastScroll;
+function handleScroll() {
+    const currentScroll = window.pageYOffset;
+    const scrollDelta = currentScroll - lastScroll;
 
-            if (Math.abs(scrollDelta) > 30) {
-                if (scrollDelta > 0 && currentScroll > scrollThreshold) {
-                    navbar.classList.add('navbar-hidden');
-                } else {
-                    navbar.classList.remove('navbar-hidden');
-                }
-                lastScroll = currentScroll;
-            }
+    // 触发条件保持30px的滚动变化量检测
+    if (Math.abs(scrollDelta) > 30) {
+        if (scrollDelta > 0 && currentScroll > scrollThreshold) {
+            navbar.classList.add('navbar-hidden');
+        } else {
+            navbar.classList.remove('navbar-hidden');
         }
+        lastScroll = currentScroll;
+    }
+}
 
-        window.addEventListener('scroll', () => {
-            requestAnimationFrame(handleScroll);
-        });
+window.addEventListener('scroll', () => {
+    requestAnimationFrame(handleScroll);
+});
 
         // 菜单控制系统
         const body = document.body;
