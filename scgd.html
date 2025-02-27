@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>好麻烦的html</title>
     <style>
+    /* 新增视差样式 */
+        .parallax-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .parallax-text {
+            background: #fff;
+            padding: 40px 20px;
+            z-index: 1;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        .parallax-image {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
         /* ========= 全局重置 ========= */
         * {
             margin: 0;
@@ -154,21 +178,12 @@
         }
 
         /* ========= 主视觉区域 ========= */
+        /* 调整原有样式 */
         .hero-section {
-    height: 100vh;
-    background: 
-        linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-        url('images/bg1.png') center/cover no-repeat fixed;  /* 添加fixed属性 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    position: relative;  /* 添加定位 */
-    z-index: 0;          /* 设置层级 */
-}
+            background: 
+                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                url('images/bg1.png') center/cover no-repeat;
+        }
 
 
         /* ========= 内容区域 ========= */
@@ -311,16 +326,16 @@
     <div class="menu-overlay"></div>
 
     <!-- 主内容区 -->
+    <!-- 重构后的主内容区 -->
     <main>
-        <section class="hero-section">
+        <!-- 首屏视差 -->
+        <section class="parallax-section parallax-image hero-section">
             <h1>你好哇</h1>
             <p>不如上滑动试试吧?</p>
         </section>
 
-        <div class="container-1">
-            <!-- 内容区块... -->
-           
-        <!--从这里开始复制(主页面)-->
+        <!-- 内容区块1 -->
+        <section class="parallax-section parallax-text">
             <div class="container-2">
                 <div class="ratio-box">
                     <img src="images/bg2.jpg" alt="主页面1">
@@ -328,8 +343,14 @@
                 <h3>主页面1</h3>
                 <p>主页面简介1</p>
             </div>
-            <!--到这里结束(主页面)-->
+        </section>
 
+        <!-- 视差图片1 -->
+        <section class="parallax-section parallax-image" 
+                 style="background-image: url('images/parallax1.jpg')"></section>
+
+        <!-- 内容区块2 -->
+        <section class="parallax-section parallax-text">
             <div class="container-2">
                 <div class="ratio-box">
                     <img src="tech1.jpg" alt="主页面2">
@@ -337,9 +358,19 @@
                 <h3>主页面2</h3>
                 <p>主页面简介2</p>
             </div>
-            <!--粘贴到这里(主页面)-->
-        
-        </div>
+        </section>
+
+        <!-- 视差图片2 -->
+        <section class="parallax-section parallax-image" 
+                 style="background-image: url('images/parallax2.jpg')"></section>
+
+        <!-- 页脚 -->
+        <section class="parallax-section parallax-text">
+            <div class="container-2">
+                <h3>Footer</h3>
+                <p>网站结尾内容</p>
+            </div>
+        </section>
     </main>
 
     <!-- 音频系统 -->
