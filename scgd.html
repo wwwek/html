@@ -154,24 +154,27 @@
     }
 
     /* ========= 主视觉区域 ========= */
-    .hero-section {
-        height: 100vh;
-        background: 
-            linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-            url('images/bg1.png') center/cover no-repeat;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        position: relative;
-        z-index: 0;
-        transform: translate3d(0,0,0);
-        backface-visibility: hidden;
-        will-change: transform;
-    }
+    /* ========= 修改后的主视觉区域CSS ========= */
+.hero-section {
+    height: 100vh;
+    background: 
+        linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+        url('images/bg1.png') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 0;
+    transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    will-change: transform;
+    /* 新增溢出隐藏 */
+    overflow: hidden;
+}
 
     @media (min-width: 768px) {
         .hero-section {
@@ -180,11 +183,13 @@
     }
 
     @media (max-width: 767px) {
-        .hero-section {
-            background-attachment: scroll;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
+    .hero-section {
+        background-attachment: scroll;
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        /* 增加最小高度限制 */
+        min-height: 100vh;
     }
+}
 
     /* ========= 内容区域 ========= */
     .container-1 {
@@ -380,17 +385,26 @@
     }
 
     // 视差控制
-    function handleParallax() {
-        const hero = document.querySelector('.hero-section');
-        const scrollY = window.pageYOffset;
+    // ========= 修改后的视差控制函数 =========
+function handleParallax() {
+    const hero = document.querySelector('.hero-section');
+    const scrollY = window.pageYOffset;
+    
+    if (window.innerWidth < 768) {
+        // 新增视差限制参数
+        const parallaxCoefficient = 0.3; // 降低视差系数
+        const maxParallax = window.innerHeight * 0.5; // 最大位移为屏幕高度的50%
         
-        if (window.innerWidth < 768) {
-            const parallaxValue = scrollY * 0.4;
-            hero.style.transform = `translate3d(0, ${parallaxValue}px, 0)`;
-        } else {
-            hero.style.transform = 'translate3d(0,0,0)';
-        }
+        // 计算受限视差值
+        let parallaxValue = Math.min(scrollY * parallaxCoefficient, maxParallax);
+        parallaxValue = Math.max(parallaxValue, 0); // 禁止反向移动
+        
+        hero.style.transform = `translate3d(0, ${parallaxValue}px, 0)`;
+    } else {
+        hero.style.transform = 'translate3d(0,0,0)';
     }
+}
+
 
     // 统一滚动监听
     window.addEventListener('scroll', () => {
