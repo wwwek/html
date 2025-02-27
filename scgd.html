@@ -348,31 +348,57 @@
     </audio>
 
     <script>
-        // 保持原有JavaScript代码不变...
-        // 导航栏滚动控制
-let lastScroll = 0;
-const navbar = document.getElementById('navbar');
-const scrollThreshold = 30; // ⭐ 触发阈值从100px改为50px（灵敏度翻倍）⭐
+        // 导航栏滚动控制（⭐关键修改开始⭐）
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        const scrollThreshold = 30;
 
-function handleScroll() {
-    const currentScroll = window.pageYOffset;
-    const scrollDelta = currentScroll - lastScroll;
+        function handleScroll() {
+            // 新增菜单状态判断
+            if (document.body.classList.contains('menu-open')) return;
 
-    // 触发条件保持30px的滚动变化量检测
-    if (Math.abs(scrollDelta) > 30) {
-        if (scrollDelta > 0 && currentScroll > scrollThreshold) {
-            navbar.classList.add('navbar-hidden');
-        } else {
-            navbar.classList.remove('navbar-hidden');
+            const currentScroll = window.pageYOffset;
+            const scrollDelta = currentScroll - lastScroll;
+
+            if (Math.abs(scrollDelta) > 30) {
+                if (scrollDelta > 0 && currentScroll > scrollThreshold) {
+                    navbar.classList.add('navbar-hidden');
+                } else {
+                    navbar.classList.remove('navbar-hidden');
+                }
+                lastScroll = currentScroll;
+            }
         }
-        lastScroll = currentScroll;
-    }
-}
+        // ⭐关键修改结束⭐
 
-window.addEventListener('scroll', () => {
-    requestAnimationFrame(handleScroll);
-});
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(handleScroll);
+        });
 
+        // 触摸事件处理（⭐关键修改开始⭐）
+        let touchStartY = 0;
+        window.addEventListener('touchstart', e => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', e => {
+            // 新增菜单状态判断
+            if (document.body.classList.contains('menu-open')) return;
+
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaY = touchEndY - touchStartY;
+
+            if (Math.abs(deltaY) > 50) {
+                if (deltaY > 0) {
+                    navbar.classList.remove('navbar-hidden');
+                } else {
+                    navbar.classList.add('navbar-hidden');
+                }
+            }
+        }, { passive: true });
+        // ⭐关键修改结束⭐
+
+        // 保持原有其他JavaScript代码完全不变
         // 菜单控制系统
         const body = document.body;
         const hamburger = document.querySelector('.hamburger');
@@ -399,45 +425,21 @@ window.addEventListener('scroll', () => {
             musicControl.textContent = audio.paused ? "♪" : "༶";
         });
 
-        // 触摸事件处理
-        let touchStartY = 0;
-        window.addEventListener('touchstart', e => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        window.addEventListener('touchend', e => {
-            const touchEndY = e.changedTouches[0].clientY;
-            const deltaY = touchEndY - touchStartY;
-
-            if (Math.abs(deltaY) > 50) {
-                if (deltaY > 0) {
-                    navbar.classList.remove('navbar-hidden');
-                } else {
-                    navbar.classList.add('navbar-hidden');
-                }
+        // 容器动画控制
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                document.querySelectorAll('.container-2').forEach(item => {
+                    item.style.opacity = '1';
+                });
             }
-        }, { passive: true });
-        // 在现有JS中添加
-let lastScrollY = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // 控制容器动画
-    if (currentScroll > 50) {
-        document.querySelectorAll('.container-2').forEach(item => {
-            item.style.opacity = '1';
+            
+            const shadowOpacity = Math.min(currentScroll / 200, 0.15);
+            document.querySelector('.container-1').style.boxShadow = `0 -5px 20px rgba(0,0,0,${shadowOpacity})`;
+            lastScrollY = currentScroll;
         });
-    }
-    
-    // 动态调整阴影强度
-    const shadowOpacity = Math.min(currentScroll / 200, 0.15);
-    document.querySelector('.container-1').style.boxShadow = `0 -5px 20px rgba(0,0,0,${shadowOpacity})`;
-    
-    lastScrollY = currentScroll;
-});
-
-        
     </script>
 </body>
 </html>
