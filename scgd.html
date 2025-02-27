@@ -154,20 +154,45 @@
         }
 
         /* ========= 主视觉区域 ========= */
-        .hero-section {
-    height: 100vh;
+.hero-section {
+    /* 固定高度适配全面屏 */
+    height: 720px; /* 直接使用屏幕高度数值 */
     background: 
         linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-        url('images/bg1.png') center/cover no-repeat fixed;  /* 添加fixed属性 */
+        url('images/bg1.png') no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     text-align: center;
-    padding: 20px;
-    position: relative;  /* 添加定位 */
-    z-index: 0;          /* 设置层级 */
+    position: relative;
+    z-index: 0;
+    /* OPPO A2专用定位 */
+    background-size: 1612px 720px; /* 精确匹配屏幕分辨率 */
+    background-position: center -40px; /* 微调图片位置补偿状态栏 */
+    transform: translateZ(0); /* 强制GPU渲染 */
+    overflow: hidden; /* 防止溢出 */
+    /* 物理像素适配 */
+    image-rendering: -webkit-optimize-contrast; /* 抗锯齿优化 */
+}
+
+/* 桌面端保留原有效果 */
+@media (min-width: 768px) {
+    .hero-section {
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+}
+
+/* 超小屏幕适配 */
+@media (max-height: 700px) {
+    .hero-section {
+        height: 100vh;
+        background-size: auto 100vh;
+    }
 }
 
 
@@ -348,6 +373,38 @@
     </audio>
 
     <script>
+    // 图片预加载优化
+const bgImage = new Image();
+bgImage.src = 'images/bg1.png';
+
+// 确保图片加载完成后再应用背景
+bgImage.onload = function() {
+    const hero = document.querySelector('.hero-section');
+    hero.style.backgroundImage = 
+        `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${bgImage.src})`;
+    
+    // OPPO A2专用重绘优化
+    if(/CPH2421/i.test(navigator.userAgent)) { // OPPO A2设备检测
+        hero.style.backfaceVisibility = 'hidden';
+        hero.style.willChange = 'transform';
+        hero.style.contain = 'strict';
+    }
+};
+
+// 优化导航栏显示逻辑
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    const navbar = document.getElementById('navbar');
+    
+    // OPPO A2专用滚动优化
+    if(currentScroll > 100) {
+        navbar.style.transform = 'translateY(0)';
+        navbar.style.transition = 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    } else {
+        navbar.style.transform = 'translateY(0)';
+    }
+}, { passive: true });
+
         // 导航栏滚动控制（⭐关键修改开始⭐）
         let lastScroll = 0;
         const navbar = document.getElementById('navbar');
