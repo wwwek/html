@@ -1,36 +1,25 @@
 用来看看背景图片是如何插入的
 <!DOCTYPE html>
-<html>
-<head>
-  <!-- 关键：适配手机屏幕 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  
-  <style>
-    body {
-      /* 背景图片路径（根据你的文件位置修改） */
-      background-image: url('images/bg1.png);
-      
-      /* 适配手机的核心配置 */
-      background-size: cover;        /* 覆盖整个屏幕（可能裁剪边缘） */
-      background-position: center;   /* 图片居中显示 */
-      background-repeat: no-repeat;  /* 禁止重复 */
-      background-attachment: fixed;  /* 固定背景（部分移动端可能不支持） */
-      
-      /* 强制撑满手机屏幕高度 */
-      min-height: 100vh;
-      margin: 0;  /* 移除默认边距 */
-    }
-
-    /* 可选：防止内容超出时出现滚动条 */
-    @media (max-width: 767px) {
-      html {
-        overflow: hidden;
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Untitled</title>
+    <meta name="description" content="This is an example of a meta description.">
+    <link rel="stylesheet" type="text/css" href="theme.css">
+ 
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+      .box{
+        width: 2352px;
+        height: 3321px;
+        background-image: url('/images/bg1.png');
+        background-size: 2352px 3321px;
       }
-    }
-  </style>
-</head>
-<body>
-  <!-- 你的页面内容 -->
-  <h1 style="color: white; text-align: center;">背景图片</h1>
-</body>
+    </style>
+  </head>
+  <body>
+		<div class="box"></div>
+  </body>
 </html>
