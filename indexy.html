@@ -116,6 +116,25 @@
         .menu-open .hamburger span:nth-child(3) {
             transform: rotate(-45deg) translate(2px, 1px);
         }
+        
+        /* 修复菜单项布局 */
+#menu-panel {
+    width: 75%; /* 保持原有宽度 */
+    padding: 80px 15px 20px; /* 调整左右padding */
+}
+
+/* 图片容器适配 */
+.menu-item .ratio-box {
+    width: calc(100% + 30px); /* 抵消父容器的padding */
+    margin: -15px -15px 15px -15px; /* 上左右负边距 */
+    border-radius: 0;
+}
+
+/* 保持头像模块原有样式 */
+.menu-header {
+    padding: 0 15px 20px; /* 与菜单项对齐 */
+    margin-bottom: 15px;
+}
 
         /* ========= 菜单系统 ========= */
         #menu-panel {
@@ -265,15 +284,6 @@
             padding: 8px;
             transition: opacity 0.3s ease;
         }
-        
-        /* 确保图片容器无间隙 */
-.ratio-box {
-    width: calc(100% + 30px); /* 抵消父容器的padding */
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-top: -15px;
-    border-radius: 0; /* 可选：若需要直角 */
-}
     </style>
 </head>
 <body>
@@ -289,20 +299,16 @@
 
     <!-- 菜单系统 -->
     <div id="menu-panel">
-        <div class="menu-header">
-            <div class="avatar-container">
-                <img src="images/tx.webp" alt="头像">
-            </div>
-            <h3>随随便便</h3>
-            <p>慵懒的</p>
+    <!-- 保留原有头像模块 -->
+    <div class="menu-header">
+        <div class="avatar-container">
+            <img src="images/tx.webp" alt="头像">
         </div>
-        
-        <!-- 菜单内容 -->
-        <!-- 修改后的菜单内容 -->
-<div id="menu-panel">
-    <div class="menu-header">...</div>
-    
-    <!-- 独立平级的menu-item -->
+        <h3>随随便便</h3>
+        <p>慵懒的</p>
+    </div>
+
+    <!-- 修正后的菜单项结构 -->
     <div class="menu-item">
         <div class="ratio-box">
             <img src="images/hb3.webp" alt="汉堡菜单1">
@@ -317,14 +323,6 @@
         </div>
         <h4><a href="new.html">另一个啥也没有的</a></h4>
         <p>一个仅仅有文字内容的网页</p>
-    </div>
-
-    <div class="menu-item">
-        <div class="ratio-box">
-            <img src="images/hb1.webp" alt="汉堡菜单3">
-        </div>
-        <h4><a href="zj.html">用ds写的</a></h4>
-        <p>网页有点抽象</p>
     </div>
 </div>
         
