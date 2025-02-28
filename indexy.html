@@ -168,20 +168,6 @@
             height: 100%;
             object-fit: cover;
         }
-        
-        /* 仅调整菜单项中的图片尺寸 */
-.menu-item .ratio-box {
-    width: 200px;      /* 固定宽度 */
-    height: 150px;     /* 固定高度 */
-    aspect-ratio: unset; /* 移除原有比例 */
-    margin: 0 auto;    /* 水平居中 */
-}
-
-/* 保持图片填充方式 */
-.menu-item .ratio-box img {
-    object-fit: cover;
-}
-
 
         .menu-item {
             background: rgba(255,255,255,0.95);
@@ -279,6 +265,15 @@
             padding: 8px;
             transition: opacity 0.3s ease;
         }
+        
+        /* 确保图片容器无间隙 */
+.ratio-box {
+    width: calc(100% + 30px); /* 抵消父容器的padding */
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: -15px;
+    border-radius: 0; /* 可选：若需要直角 */
+}
     </style>
 </head>
 <body>
@@ -303,40 +298,35 @@
         </div>
         
         <!-- 菜单内容 -->
-        <div class="menu-item">
-            <div class="ratio-box">
-                <img src="images/hb3.webp" alt="汉堡菜单1">
-            </div>
-            <h4><a href="index.html" style="text-decoration:none;">主页</a></h4>
-            <p>根据康文昌教程制作</p>
-            <!--从这里开始复制-->
-            <div class="menu-item">
-            <div class="ratio-box">
-                <img src="images/hb2.webp" alt="汉堡菜单2">
-            </div>
-            <h4><a href="new.html"
- style="text-decoration:none;">另一个啥也没有的</a></h4>
-            <p>一个仅仅有文字内容的网页</p>
+        <!-- 修改后的菜单内容 -->
+<div id="menu-panel">
+    <div class="menu-header">...</div>
+    
+    <!-- 独立平级的menu-item -->
+    <div class="menu-item">
+        <div class="ratio-box">
+            <img src="images/hb3.webp" alt="汉堡菜单1">
         </div>
-        <!--到这里复制结束-->
-        <div class="menu-item">
-            <div class="ratio-box">
-                <img src="images/hb1.webp" alt="汉堡菜单3">
-            </div>
-            <h4><a href="zj.html"
- style="text-decoration:none;">用ds写的</a></h4>
-            <p>网页有点抽象</p>
+        <h4><a href="index.html">主页</a></h4>
+        <p>根据康文昌教程制作</p>
+    </div>
+
+    <div class="menu-item">
+        <div class="ratio-box">
+            <img src="images/hb2.webp" alt="汉堡菜单2">
         </div>
-        <div class="menu-item">
-            <div class="ratio-box">
-                <img src="project1.jpg" alt="汉堡菜单4">
-            </div>
-            <h4><a href="sy.html"
- style="text-decoration:none;">图片网页</a></h4>
-            <p>用来实验了添加网页背景</p>
-               </div>
-               <!--复制内容粘贴到这里-->
+        <h4><a href="new.html">另一个啥也没有的</a></h4>
+        <p>一个仅仅有文字内容的网页</p>
+    </div>
+
+    <div class="menu-item">
+        <div class="ratio-box">
+            <img src="images/hb1.webp" alt="汉堡菜单3">
         </div>
+        <h4><a href="zj.html">用ds写的</a></h4>
+        <p>网页有点抽象</p>
+    </div>
+</div>
         
         <!-- 其他菜单项... -->
     </div>
