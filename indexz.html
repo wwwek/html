@@ -4,186 +4,287 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>好麻烦的html</title>
-      /* ========= 全局样式 ========= */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
+    <style>
+    /* 新增视差样式 */
+        .parallax-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
 
-    html {
-        scroll-behavior: smooth;
-        font-size: 16px;
-    }
+        .parallax-text {
+            background: #fff;
+            padding: 40px 20px;
+            z-index: 1;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
 
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        line-height: 1.6;
-    }
+        .parallax-image {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
 
-    /* ========= 导航栏系统 ========= */
-    #navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 48px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px) saturate(180%);
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        transition: 
-            transform 0.3s cubic-bezier(0.4, 0, 0.2, 0.1),
-            background 0.3s ease;
-        z-index: 1000;
-    }
+        /* 或使用更精确的选择器 */
+         section.parallax-section:nth-of-type(4) .ratio-box img[src="images/bg4.png"] {
+            object-position: top center;
+         }
+        
+        /* ========= 全局重置 ========= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .navbar-hidden {
-        transform: translateY(-100%);
-    }
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
 
-    /* ========= 汉堡菜单 ========= */
-    .hamburger {
-        width: 24px;
-        height: 18px;
-        position: relative;
-        cursor: pointer;
-        z-index: 1003;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+        }
 
-    .hamburger span {
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background: #666;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        transform-origin: left center;
-    }
+        /* ========= 导航栏系统 ========= */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            transition: 
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 0.1),
+                background 0.3s ease;
+            z-index: 1000;
+        }
 
-    .hamburger span:nth-child(1) { top: 2px; }
-    .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-    .hamburger span:nth-child(3) { bottom: 2px; }
+        .navbar-hidden {
+            transform: translateY(-100%);
+            background: rgba(255, 255, 255, 0.05);
+        }
 
-    .menu-open .hamburger span:nth-child(1) {
-        transform: rotate(45deg) translate(2px, -1px);
-    }
+        #navbar:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-    .menu-open .hamburger span:nth-child(3) {
-        transform: rotate(-45deg) translate(2px, 1px);
-    }
+        /* ========= 汉堡菜单系统 ========= */
+        .hamburger {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1003;
+        }
 
-    /* ========= 菜单系统 ========= */
-    #menu-panel {
-        position: fixed;
-        top: 0;
-        left: -75%;
-        width: 75%;
-        height: 100%;
-        background: rgba(255,255,255,0.98);
-        transition: transform 0.4s cubic-bezier(0.32, 0.04, 0.35, 1.04);
-        z-index: 1002;
-        padding: 80px 15px 20px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+        .hamburger span {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #666;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left center;
+        }
 
-    .menu-open #menu-panel {
-        transform: translateX(100%);
-    }
+        .hamburger span:nth-child(1) { top: 2px; }
+        .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .hamburger span:nth-child(3) { bottom: 2px; }
 
-    .menu-item .ratio-box {
-        width: calc(100% + 30px);
-        margin: -15px -15px 15px -15px;
-        border-radius: 0;
-    }
+        .hamburger:hover span {
+            background: #333;
+        }
 
-    /* ========= 图片加载系统 ========= */
-    .ratio-box {
-        position: relative;
-        background: #f0f0f0;
-        animation: loadingPulse 1.5s ease-in-out infinite;
-    }
+        .menu-open .hamburger span:nth-child(1) {
+            transform: rotate(45deg) translate(2px, -1px);
+        }
 
-    .image-loading::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        z-index: 2;
-        transition: opacity 0.3s ease;
-    }
+        .menu-open .hamburger span:nth-child(3) {
+            transform: rotate(-45deg) translate(2px, 1px);
+        }
+        
+        /* 修复菜单项布局 */
+#menu-panel {
+    width: 75%; /* 保持原有宽度 */
+    padding: 80px 15px 20px; /* 调整左右padding */
+}
 
-    .parallax-image::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        transition: opacity 0.3s ease;
-        z-index: 1;
-    }
+/* 图片容器适配 */
+.menu-item .ratio-box {
+    width: calc(100% + 30px); /* 抵消父容器的padding */
+    margin: -15px -15px 15px -15px; /* 上左右负边距 */
+    border-radius: 0;
+}
 
-    .image-loaded .image-loading::after,
-    .parallax-image.image-loaded::before {
-        opacity: 0;
-        pointer-events: none;
-    }
+/* 保持头像模块原有样式 */
+.menu-header {
+    padding: 0 15px 20px; /* 与菜单项对齐 */
+    margin-bottom: 15px;
+}
 
-    @keyframes loadingPulse {
-        0% { background-color: #f5f5f5; }
-        50% { background-color: #e0e0e0; }
-        100% { background-color: #f5f5f5; }
-    }
+        /* ========= 菜单系统 ========= */
+        #menu-panel {
+            position: fixed;
+            top: 0;
+            left: -75%;
+            width: 75%;
+            height: 100%;
+            background: rgba(255,255,255,0.98);
+            transition: transform 0.4s cubic-bezier(0.32, 0.04, 0.35, 1.04);
+            z-index: 1002;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
-    /* ========= 其他样式 ========= */
-    .parallax-section {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        position: relative;
-    }
+        #menu-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+        #menu-panel::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        #menu-panel::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
 
-    .hero-section {
-        background: 
-            linear-gradient(rgba(0,0,0,0.3), 
-            url('images/bg1.png') center/cover no-repeat;
-    }
+        .menu-open #menu-panel {
+            transform: translateX(100%);
+        }
 
-    .container-2 {
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        animation: slideUp 0.5s ease forwards;
-        opacity: 0;
-        animation-delay: 0.3s;
-    }
+        .menu-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
 
-    @keyframes slideUp {
-        from { transform: translateY(0); }
-        to { transform: translateY(-20px); }
+        .avatar-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-item {
+            background: rgba(255,255,255,0.95);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ========= 主视觉区域 ========= */
+        /* 调整原有样式 */
+        .hero-section {
+            background: 
+                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                url('images/yasuobg1.webp') center/cover no-repeat;
+        }
+
+
+        /* ========= 内容区域 ========= */
+        .container-1 {
+    background: #fff;    /* 改为纯白背景 */
+    padding: 40px 20px;
+    position: relative;  /* 添加定位 */
+    z-index: 1;          /* 设置更高层级 */
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1); /* 添加顶部阴影增强遮盖效果 */
+}
+
+/* 添加以下关键帧动画 */
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
     }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+        .container-2 {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            /* 原有样式保持不变 */
+    animation: slideUp 0.5s ease forwards; /* 添加入场动画 */
+    opacity: 0; /* 初始透明 */
+    animation-delay: 0.3s; /* 延迟出现 */
+        }
+
+        .ratio-box {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .ratio-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ========= 交互元素 ========= */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.25);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+            pointer-events: none;
+        }
+
+        .menu-open .menu-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #music-control {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            padding: 8px;
+            transition: opacity 0.3s ease;
+        }
     </style>
-
 </head>
 <body>
     <!-- 导航栏 -->
@@ -212,7 +313,7 @@
         <div class="ratio-box">
             <img src="images/hb3.webp" alt="汉堡菜单1">
         </div>
-        <h4><a href="index.html">主页</a></h4>
+        <h4><a href="indexx.html" style="text-decoration:none;">主页</a></h4>
         <p>根据康文昌教程制作</p>
     </div>
 
@@ -220,7 +321,7 @@
         <div class="ratio-box">
             <img src="images/hb2.webp" alt="汉堡菜单2">
         </div>
-        <h4><a href="new.html">另一个啥也没有的</a></h4>
+        <h4><a href="new.html" style="text-decoration:none;">另一个啥也没有的</a></h4>
         <p>一个仅仅有文字内容的网页</p>
     </div>
     
@@ -228,7 +329,7 @@
         <div class="ratio-box">
             <img src="images/hb1.webp" alt="汉堡菜单3">
         </div>
-        <h4><a href="zj.html">用da写的</a></h4>
+        <h4><a href="zj.html" style="text-decoration:none;">用deepseek写的</a></h4>
         <p>网页有点抽象</p>
     </div>
     
@@ -279,11 +380,43 @@
         <section class="parallax-section parallax-image" 
                  style="background-image: url('images/bg4.png')"></section>
 
+<!-- 内容区块3 -->
+
+<section class="parallax-section parallax-text">
+            <div class="container-2">
+                <div class="ratio-box">
+                    <img src="images/bg3.jpg" alt="主页面3">
+                </div>
+                <h3>主页面3</h3>
+                <p>主页面简介3</p>
+            </div>
+        </section>
+
+        <!-- 视差图片3 -->
+        <section class="parallax-section parallax-image" 
+                 style="background-image: url('images/bg3.jpg')"></section>
+
+<!-- 内容区块4 -->
+
+<section class="parallax-section parallax-text">
+            <div class="container-2">
+                <div class="ratio-box">
+                    <img src="images/bg5.png" alt="主页面4">
+                </div>
+                <h3>主页面4</h3>
+                <p>主页面简介4</p>
+            </div>
+        </section>
+
+        <!-- 视差图片4 -->
+        <section class="parallax-section parallax-image" 
+                 style="background-image: url('images/bg5.png')"></section>
+
         <!-- 页脚 -->
         <section class="parallax-section parallax-text">
             <div class="container-2">
                 <h3>Footer</h3>
-                <p>网站结尾内容</p>
+                <p>来到世界的尽头啦<br>点此前往我的<a href="https://b23.tv/SGfC7Ou" style="text-decoration:none;">b站主页</a>哦</p>
             </div>
         </section>
     </main>
@@ -294,90 +427,167 @@
     </audio>
 
     <script>
-     // ========= 图片加载系统 =========
-    function initImageLoader() {
-        // 处理普通图片
-        document.querySelectorAll('img').forEach(img => {
-            const container = img.closest('.ratio-box');
-            if (!container) return;
+// 在原有JavaScript代码前添加以下预加载逻辑
 
-            container.classList.add('image-loading');
-            if (img.complete) {
-                container.classList.add('image-loaded');
-            } else {
-                img.addEventListener('load', () => {
-                    container.classList.add('image-loaded');
-                });
-                img.addEventListener('error', () => {
-                    container.style.background = '#f8f9fa';
-                });
-            }
-        });
+// 预加载所有关键图片
+function preloadParallaxImages() {
+    const imageList = [
+        // 视差背景图
+        'images/bg1.png',
+        'images/bg2.jpg',
+        'images/bg4.png.',
+        
+        // 菜单图片
+        'avatar.jpg',
+        'project1.jpg',
+        
+        // 内容区块图片
+        'tech1.jpg'
+    ];
 
-        // 处理背景图片
-        document.querySelectorAll('.parallax-image').forEach(section => {
-            const bg = section.style.backgroundImage;
-            if (!bg) return;
+    imageList.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
 
-            const img = new Image();
-            img.src = bg.match(/url\(["']?(.*?)["']?\)/i)[1];
-            img.onload = () => section.classList.add('image-loaded');
-            img.onerror = () => section.style.backgroundImage = '';
-        });
-    }
+// 增强型预加载（带加载状态跟踪）
+function enhancedPreload() {
+    const imagesToPreload = [
+        ...document.querySelectorAll('.parallax-image'),
+        ...document.querySelectorAll('.ratio-box img'),
+        ...document.querySelectorAll('.avatar-container img')
+    ].map(el => {
+        if (el.style.backgroundImage) {
+            return el.style.backgroundImage
+                .replace(/url\((['"])?(.*?)\1\)/gi, '$2')
+                .split(',')[0];
+        }
+        return el.src;
+    });
 
-    // ========= 初始化系统 =========
-    document.addEventListener('DOMContentLoaded', () => {
-        // 图片预加载
-        const preloadImages = [
-            'images/bg1.png',
-            'images/bg2.jpg',
-            'images/bg4.png',
-            'images/tx.webp',
-            'images/hb1.webp',
-            'images/hb2.webp',
-            'images/hb3.webp'
-        ];
-        preloadImages.forEach(src => new Image().src = src);
+    // 过滤重复项
+    const uniqueImages = [...new Set(imagesToPreload)];
 
-        // 初始化图片加载系统
-        initImageLoader();
+    // 并行预加载
+    Promise.all(uniqueImages.map(loadImage))
+        .then(() => console.log('所有图片预加载完成'))
+        .catch(err => console.warn('部分图片加载失败:', err));
+}
 
-        // 导航栏控制
+function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = resolve;
+        img.onerror = reject;
+    });
+}
+
+// 初始化时执行预加载
+document.addEventListener('DOMContentLoaded', () => {
+    enhancedPreload();
+    
+    // 保持原有初始化代码
+    audio.muted = true;
+    audio.play().catch(() => {});
+    
+    // 其他原有初始化代码...
+});
+
+// 保持原有JavaScript代码不变...
+        // 导航栏滚动控制（⭐关键修改开始⭐）
         let lastScroll = 0;
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
+        const scrollThreshold = 30;
+
+        function handleScroll() {
+            // 新增菜单状态判断
+            if (document.body.classList.contains('menu-open')) return;
+
             const currentScroll = window.pageYOffset;
-            if (currentScroll > lastScroll && currentScroll > 50) {
-                navbar.classList.add('navbar-hidden');
-            } else {
-                navbar.classList.remove('navbar-hidden');
+            const scrollDelta = currentScroll - lastScroll;
+
+            if (Math.abs(scrollDelta) > 30) {
+                if (scrollDelta > 0 && currentScroll > scrollThreshold) {
+                    navbar.classList.add('navbar-hidden');
+                } else {
+                    navbar.classList.remove('navbar-hidden');
+                }
+                lastScroll = currentScroll;
             }
-            lastScroll = currentScroll;
+        }
+        // ⭐关键修改结束⭐
+
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(handleScroll);
         });
 
-        // 菜单控制
+        // 触摸事件处理（⭐关键修改开始⭐）
+        let touchStartY = 0;
+        window.addEventListener('touchstart', e => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', e => {
+            // 新增菜单状态判断
+            if (document.body.classList.contains('menu-open')) return;
+
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaY = touchEndY - touchStartY;
+
+            if (Math.abs(deltaY) > 50) {
+                if (deltaY > 0) {
+                    navbar.classList.remove('navbar-hidden');
+                } else {
+                    navbar.classList.add('navbar-hidden');
+                }
+            }
+        }, { passive: true });
+        // ⭐关键修改结束⭐
+
+        // 保持原有其他JavaScript代码完全不变
+        // 菜单控制系统
+        const body = document.body;
         const hamburger = document.querySelector('.hamburger');
         const overlay = document.querySelector('.menu-overlay');
+
         hamburger.addEventListener('click', () => {
-            document.body.classList.toggle('menu-open');
-        });
-        overlay.addEventListener('click', () => {
-            document.body.classList.remove('menu-open');
+            body.classList.toggle('menu-open');
         });
 
-        // 音乐控制
+        overlay.addEventListener('click', () => {
+            body.classList.remove('menu-open');
+        });
+
+        // 音乐控制系统
         const audio = document.getElementById('bgm');
         const musicControl = document.getElementById('music-control');
+        
         audio.muted = true;
-        audio.play();
+        audio.play().catch(() => {});
+
         musicControl.addEventListener('click', () => {
             audio.muted = false;
             audio.paused ? audio.play() : audio.pause();
             musicControl.textContent = audio.paused ? "♪" : "༶";
         });
-    });
-    </script>
 
+        // 容器动画控制
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                document.querySelectorAll('.container-2').forEach(item => {
+                    item.style.opacity = '1';
+                });
+            }
+            
+            const shadowOpacity = Math.min(currentScroll / 200, 0.15);
+            document.querySelector('.container-1').style.boxShadow = `0 -5px 20px rgba(0,0,0,${shadowOpacity})`;
+            lastScrollY = currentScroll;
+        });
+    </script>
 </body>
 </html>
