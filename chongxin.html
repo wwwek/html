@@ -127,6 +127,11 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+        .menu-item .ratio-box {
+    width: calc(100% + 30px); /* 抵消父容器的padding */
+    margin: -15px -15px 15px -15px; /* 上左右负边距 */
+    border-radius: 0;
+}
     </style>
 </head>
 <body>
@@ -141,26 +146,51 @@
     </nav>
 
     <!-- 菜单系统 -->
+    <!-- 菜单系统 -->
     <div id="menu-panel">
-    <!--头像区域-->
-<div class="menu-header">
+    <!-- 保留原有头像模块 -->
+    <div class="menu-header">
         <div class="avatar-container">
             <img src="images/tx.webp" alt="头像">
         </div>
         <h3>随随便便</h3>
         <p>慵懒的</p>
     </div>
-        <!-- 菜单内容 -->
-        <div class="menu-header">
-            <h3>菜单标题</h3>
+
+    <!-- 修正后的菜单项结构 -->
+    <div class="menu-item">
+        <div class="ratio-box">
+            <img src="images/hb3.webp" alt="汉堡菜单1">
         </div>
-        <div class="menu-item">
-            <h4><a href="#">菜单项1</a></h4>
-        </div>
-        <div class="menu-item">
-            <h4><a href="#">菜单项2</a></h4>
-        </div>
+        <h4><a href="indexx.html" style="text-decoration:none;">主页</a></h4>
+        <p>根据康文昌教程制作</p>
     </div>
+
+    <div class="menu-item">
+        <div class="ratio-box">
+            <img src="images/hb2.webp" alt="汉堡菜单2">
+        </div>
+        <h4><a href="new.html" style="text-decoration:none;">另一个啥也没有的</a></h4>
+        <p>一个仅仅有文字内容的网页</p>
+    </div>
+    
+    <div class="menu-item">
+        <div class="ratio-box">
+            <img src="images/hb1.webp" alt="汉堡菜单3">
+        </div>
+        <h4><a href="zj.html" style="text-decoration:none;">用deepseek写的</a></h4>
+        <p>网页有点抽象</p>
+    </div>
+    
+    <div class="menu-item">
+        <div class="ratio-box">
+            <img src="images/hb4.webp" alt="汉堡菜单4">
+        </div>
+        <h4><a href="sy.html" style="text-decoration:none;">图片网页</a></h4>
+        <p>用来实验了添加网页背景</p>
+    </div>
+    
+</div>
 
     <!-- 遮罩层 -->
     <div class="menu-overlay"></div>
